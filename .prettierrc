@@ -3,20 +3,25 @@
   "singleQuote": true,
   "useTabs": false,
   "tabWidth": 2,
-  "printWidth": 180,
+  "printWidth": 80,
   "trailingComma": "none",
-  "overrides": [
-    {
+  "overrides": [{
       "files": "*.wxml",
-      "options": { "parser": "html" }
+      "options": {
+        "parser": "html"
+      }
     },
     {
       "files": "*.wxss",
-      "options": { "parser": "css" }
+      "options": {
+        "parser": "css"
+      }
     },
     {
       "files": "*.wxs",
-      "options": { "parser": "babel" }
+      "options": {
+        "parser": "babel"
+      }
     }
   ]
 }
