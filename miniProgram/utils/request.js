@@ -48,21 +48,21 @@ class WxRequest {
     // upload自带了一个loading的效果,所以就不需要我们自己封装的loading的效果了
     if (options.isLoading && options.method !== 'UPLOAD') {
       // 显示loading的效果
-      // wx.shoLoading()
+      // wx.showLoading()
       // 判断 queue 队列是否为空,如果是空,就显示loading
-      // 如果不是空,就不显示loading,不调用wx.shoLoading()
-      this.queue.length === 0 && wx.shoLoading()
+      // 如果不是空,就不显示loading,不调用wx.showLoading()
+      this.queue.length === 0 && wx.showLoading()
       // 然后立即向queue数组队列中添加请求标识
       // 每个标识代表是一个请求,标识是自定义的
       this.queue.push('request')
     }
 
     // 在请求发送之前,调用请求拦截器,新增或者修改请求参数
-    options = this.interceptors.response(options)
+    options = this.interceptors.request(options)
 
     return new Promise((resolve, reject) => {
       if (options.method === 'UPLOAD') {
-        wx.uploadFIle({
+        wx.uploadFile({
           ...options,
           success: (res) => {
             // 需要将服务器返回的JSON字符串通过JSON.parse转成对象

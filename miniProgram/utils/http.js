@@ -7,7 +7,7 @@ import { modal, toast } from './extendApi'
 // 对WxRequest 进行实例化
 const instance = new WxRequest({
   baseURL: 'https://gmall-prod.atguigu.cn/mall-api',
-  timeout: 15000,
+  timeout: 15000
   // 如果整个项目里面都不希望使用loading的效果,可以在进行实例化的时候传入isLoading为false
   // isLoading: false
 })
@@ -18,7 +18,7 @@ instance.interceptors.request = (config) => {
   // 在请求发送之前可以对请求做点什么
 
   // 在发送请求之前,需要先判断本地是否存在token
-  const token = wx.getStorage('token')
+  const token = getStorage('token')
   // 如果存在token,就需要在请求头中添加token字段
   if (token) {
     config.header['token'] = token
@@ -37,7 +37,7 @@ instance.interceptors.response = async (response) => {
       title: '网络异常,请重试',
       icon: 'error'
     })
-    return response
+    return Promise.reject(response)
   }
   // 如果后端返回的业务状态码等于200,说明请求成功,服务器成功响应了数据
   switch (data.code) {
@@ -50,7 +50,7 @@ instance.interceptors.response = async (response) => {
       })
       // 用户点击确认按钮之后
       if (res) {
-        // 清楚之前失效的token,同时要清楚本地存储的全部信息
+        // 清除之前失效的token,同时要清除本地存储的全部信息
         clearStorage()
         wx.navigateTo({
           url: '/pages/login/login'

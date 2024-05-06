@@ -12,25 +12,29 @@ Page({
     //   .then((res) => {
     //     console.log(res)
     //   })
+
     // 用来测试状态码为208的情况
     // const res = await instance.get('/cart/getCartList').catch((err) => {
     //   console.log(err)
     // })
     // console.log(res)
+
     // 用来测试状态码为除200和208以外的情况
     // const res = await instance.get('/cart/getCartList111222').catch((err) => {
     //   console.log(err)
     // })
     // console.log(res)
+
     // 真机测试loading闪烁的代码
-    // instance.get('/index/findBanner').then(() => {
-    //   instance.get('/index/findBanner').then(() => {})
-    // })
-    // 测试不显示loading的情况
-    const res = await instance.get('/index/findBanner', null, {
-      isLoading: false
+    instance.get('/index/findBanner').then(() => {
+      instance.get('/index/findBanner').then(() => {})
     })
-    console.log(res)
+
+    // 测试不显示loading的情况
+    // const res = await instance.get('/index/findBanner', null, {
+    //   isLoading: false
+    // })
+    // console.log(res)
   },
 
   // 测试并发请求
