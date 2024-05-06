@@ -56,11 +56,13 @@ instance.interceptors.response = async (response) => {
           url: '/pages/login/login'
         })
       }
+      return Promise.reject(response)
 
     default:
       toast({
-        title: '程序出现异常,请联系客户或稍后重试'
+        title: '程序出现异常,请联系客服或稍后重试'
       })
+      return Promise.reject(response)
   }
 }
 
