@@ -6,7 +6,8 @@ Page({
     categoryList: [], // 商品导航区域
     activeList: [], // 活动渲染区域
     hotList: [], // 人气推荐
-    guessList: [] // 猜你喜欢
+    guessList: [], // 猜你喜欢
+    loading: true
   },
 
   // 监听页面的加载
@@ -28,7 +29,8 @@ Page({
       categoryList: res[1].data,
       activeList: res[2].data,
       guessList: res[3].data,
-      hotList: res[4].data
+      hotList: res[4].data,
+      loading: false
     })
   }
 })
