@@ -1,5 +1,6 @@
 // pages/test/test.js
 import instance from '../../utils/http'
+import { reqSwiperData } from '../../api/index'
 Page({
   // 调用方式1
   async handler() {
@@ -26,15 +27,18 @@ Page({
     // console.log(res)
 
     // 真机测试loading闪烁的代码
-    instance.get('/index/findBanner').then(() => {
-      instance.get('/index/findBanner').then(() => {})
-    })
+    // instance.get('/index/findBanner').then(() => {
+    //   instance.get('/index/findBanner').then(() => {})
+    // })
 
     // 测试不显示loading的情况
     // const res = await instance.get('/index/findBanner', null, {
     //   isLoading: false
     // })
     // console.log(res)
+
+    const res = await reqSwiperData()
+    console.log(res)
   },
 
   // 测试并发请求

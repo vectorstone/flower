@@ -1,12 +1,14 @@
 import WxRequest from './request'
 import { getStorage, clearStorage } from './storage'
 import { modal, toast } from './extendApi'
+import { env } from './env'
 // ===========一下是实例化的代码
 // 目前写到同一个文件中,是为了方便进行测试,以后会提取成多个文件
 
 // 对WxRequest 进行实例化
 const instance = new WxRequest({
-  baseURL: 'https://gmall-prod.atguigu.cn/mall-api',
+  // baseURL: 'https://gmall-prod.atguigu.cn/mall-api',
+  baseURL: env.baseURL,
   timeout: 15000
   // 如果整个项目里面都不希望使用loading的效果,可以在进行实例化的时候传入isLoading为false
   // isLoading: false
