@@ -1,4 +1,4 @@
-// pages/address/list/index.js
+// /modules/settingModule/pages/address/list/index.js
 Page({
   // 页面的初始数据
   data: {

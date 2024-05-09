@@ -1,4 +1,4 @@
-// pages/profile/profile.js
+// /modules/settingModule/pages/profile/profile.js
 
 Page({
   // 页面的初始数据
