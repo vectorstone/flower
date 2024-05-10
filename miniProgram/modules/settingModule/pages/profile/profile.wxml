@@ -3,7 +3,7 @@
     <text>头像</text>
 
     <view class="avatar">
-      <button hover-class="none">
+      <button hover-class="none" open-type="chooseAvatar" bindchooseavatar="chooseAvatar">
         <image src="{{ userInfo.headimgurl || '/assets/images/avatar.png' }}" />
       </button>
     </view>
@@ -11,11 +11,11 @@
 
   <view class="setting-list nickname" bindtap="onUpdateNickName">
     <text>昵称</text>
-    <text>{{ userInfo.nickname || '尚硅谷' }}</text>
+    <text>{{ userInfo.nickname || 'xxx' }}</text>
   </view>
 
   <view class="footer">
-    <view class="btn">保存</view>
+    <view class="btn" bindtap="updateUserInfo">保存</view>
   </view>
 
   <van-dialog

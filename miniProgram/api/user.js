@@ -14,3 +14,22 @@ export const reqLogin = (code) => http.get(`/weixin/wxLogin/${code}`)
 export const reqUserInfo = () => {
   return http.get('/weixin/getuserInfo')
 }
+
+/**
+ * @description 实现本地资源上传
+ * @param {*} filePath 要上传的文件资源路径,可以是本地的文件也可以是一个网络资源
+ * @param {*} name 文件对应的key
+ * @returns Promise
+ */
+export const reqUploadFile = (filePath, name) => {
+  return http.upload('/fileUpload', filePath, name)
+}
+
+/**
+ * @description 更新用户信息
+ * @param {*} userInfo 最新的头像和昵称
+ * @returns Promise
+ */
+export const reqUpdateUserInfo = (userInfo) => {
+  return http.post('/weixin/updateUser', userInfo)
+}
