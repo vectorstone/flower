@@ -28,7 +28,8 @@ Page({
   // 显示修改昵称弹框
   onUpdateNickName() {
     this.setData({
-      isShowPopup: true
+      isShowPopup: true,
+      'userInfo.nickname': this.data.userInfo.nickname
     })
   },
 
@@ -47,7 +48,18 @@ Page({
     console.log(data)
 
     this.setData({
+      // 更新的userstore里面的信息
       'userInfo.headimgurl': data
+    })
+  },
+  updateNickName(event) {
+    // console.log(event)
+    const { nickname } = event.detail.value
+    this.setData({
+      // 更新的userstore里面的信息
+      'userInfo.nickname': nickname,
+      // 隐藏弹窗
+      isShowPopup: false
     })
   }
 })
