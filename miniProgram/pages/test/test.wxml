@@ -1,3 +1,6 @@
+<!-- npm i async-validator  表单验证的组件 -->
+
+
 <view class="box">
   <button type="warn" plain size="mini" bindtap="handler">测试发送请求</button>
 </view>

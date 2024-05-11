@@ -10,7 +10,8 @@
     "pages/order/list/list",
     "pages/login/login",
     "pages/settings/settings",
-    "pages/test/test"
+    "pages/test/test",
+    "pages/test2/test2"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -23,8 +24,7 @@
     "selectedColor": "#FF734C",
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
-    "list": [
-      {
+    "list": [{
         "pagePath": "pages/index/index",
         "text": "首页",
         "iconPath": "assets/tabbar/index.png",
@@ -70,21 +70,21 @@
     "van-goods-action-button": "@vant/weapp/goods-action-button/index"
   },
   "sitemapLocation": "sitemap.json",
-  "subPackages": [
-    {
-      "root": "modules/settingModule",
-      "name": "settingModule",
-      "pages": [
-        "pages/address/add/index",
-        "pages/address/list/index",
-        "pages/profile/profile"
-      ]
-    }
-  ],
+  "subPackages": [{
+    "root": "modules/settingModule",
+    "name": "settingModule",
+    "pages": [
+      "pages/address/add/index",
+      "pages/address/list/index",
+      "pages/profile/profile"
+    ]
+  }],
   "preloadRule": {
     "pages/settings/settings": {
       "network": "all",
-      "packages": ["settingModule"]
+      "packages": [
+        "settingModule"
+      ]
     }
   }
 }

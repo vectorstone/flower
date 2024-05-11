@@ -9,6 +9,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/test2/test2",
+          "pathName": "pages/test2/test2",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "addAddress",
           "pathName": "modules/settingModule/pages/address/add/index",
           "query": "",
