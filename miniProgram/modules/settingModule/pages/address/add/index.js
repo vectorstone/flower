@@ -1,5 +1,10 @@
 // 从async-validator 中引入构造函数
 import Schema from 'async-validator'
+import {
+  reqAddAddress,
+  reqGetAddressDetail,
+  reqUpdateAddress
+} from '../../../../../api/address'
 
 Page({
   // 页面的初始数据
@@ -18,16 +23,30 @@ Page({
     isDefault: false // 是否设置为默认地址,如果为0 不设置为默认地址,如果为1 设置为默认地址
   },
 
+  async onLoad(event) {
+    console.log(event)
+    // 从数据里面解构出来对应的id,如果id存在的话说明是修改的操作,如果id不存在的话说明是新增的操作
+    const { id } = event
+    this.showAddressInfo(id)
+  },
+
+  async showAddressInfo(id) {
+    if (!id) return
+    // 将id挂载到当前页面的实例 (this) 上,方便再多个方法中使用id
+    this.addressId = id
+    // 动态的设置当前页面的标题
+    wx.setNavigationBarTitle({
+      title: '更新收获地址'
+    })
+    const { data } = await reqGetAddressDetail(id)
+    // 将详情数据进行赋值,赋值以后,页面上就会回显要更新的地址信息
+    this.setData(data)
+  },
+
   // 保存收货地址
   async saveAddrssForm() {
     // 需要拼接完整的地址以及转换isDefualt属性
-    const {
-      provinceName,
-      cityNam,
-      districtName,
-      address,
-      isDefault
-    } = this.data
+    const { provinceName, cityNam, districtName, address, isDefault } = this.data
     const params = {
       ...this.data,
       fullAddress: provinceName + cityNam + districtName + address,
@@ -42,6 +61,26 @@ Page({
     if (!valid) return
     // 如果valid 等于 true,说明验证成功调用新增的接口实现新增收货地址功能
     console.log('验证成功', params)
+
+    console.log('this.addressId', this.addressId)
+    // 执行对应的地址的保存的动作
+    const res = this.addressId
+      ? await reqUpdateAddress(params)
+      : await reqAddAddress(params)
+    console.log(res)
+    // 保存成功或者失败的话需要进行对应的提示
+    const { code } = res
+    if (code === 200) {
+      // 说明保存成功,提示,然后返回上一页
+      wx.navigateBack({
+        success: () => {
+          wx.toast({ title: this.addressId ? '地址更新成功' : '地址新增成功' })
+        }
+      })
+    } else {
+      // 提示用户保存成功
+      wx.toast({ title: this.addressId ? '地址更新失败,请重试' : '地址新增失败,请重试' })
+    }
   },
 
   validatorAddress(params) {

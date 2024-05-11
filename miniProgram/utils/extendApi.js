@@ -1,7 +1,12 @@
 // 在使用toast方法是,可以传参参数,也可以不传入参数
 // 如果需要传入参数,需要传入对象作为参数
 
-const toast = ({title = '数据加载中',icon = 'none',duration = 2000,mask = true} = {}) => {
+const toast = ({
+  title = '数据加载中',
+  icon = 'none',
+  duration = 1000,
+  mask = true
+} = {}) => {
   wx.showToast({
     title,
     icon,
@@ -9,7 +14,6 @@ const toast = ({title = '数据加载中',icon = 'none',duration = 2000,mask = t
     mask
   })
 }
-
 
 const modal = (options = {}) => {
   // 在方法内部需要通过 promise 返回用户的操作
@@ -24,12 +28,12 @@ const modal = (options = {}) => {
     }
 
     // 通过 Object.assign方法将参数进行合并
-    const opts = Object.assign({},defaulutOpt,options)
+    const opts = Object.assign({}, defaulutOpt, options)
 
     wx.showModal({
       // 将合并以后的参数通过展开运算符赋值给 wx.showModal 对象
       ...opts,
-      complete({confirm,cancle}) {
+      complete({ confirm, cancle }) {
         confirm && reslove(true)
         cancle && reslove(false)
       }
@@ -37,10 +41,8 @@ const modal = (options = {}) => {
   })
 }
 
-
-
 // 如果其他 .js 文件,需要使用toast方法,需要先导入toast,然后进行调用才行
-export {toast,modal}
+export { toast, modal }
 
 // 如果有很多的.js文件,都需要调用 toast 方法
 // 每次使用都需要导入toast,然后进行调用太麻烦了

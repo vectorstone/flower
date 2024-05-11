@@ -34,8 +34,8 @@ export const reqGetAddressDetail = (id) => {
  * @returns Promise
  */
 // post /userAddress/update 更新收货地址
-export const reqUpdateAddress = () => {
-  return http.post('/userAddress/update')
+export const reqUpdateAddress = (address) => {
+  return http.post('/userAddress/update', address)
 }
 
 /**
