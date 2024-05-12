@@ -2,20 +2,12 @@
 <view class="container">
   <!-- 顶部展示图 -->
   <view class="top-show">
-    <image
-      mode="widthFix"
-      class="top-show-img"
-      src="/assets/images/banner.jpg"
-    ></image>
+    <image mode="widthFix" class="top-show-img" src="/assets/images/banner.jpg"></image>
   </view>
 
   <view class="bottom-show">
     <!-- 未登录面板 -->
-    <view
-      class="user-container section"
-      bindtap="toLoginPage"
-      wx:if="{{!token}}"
-    >
+    <view class="user-container section" bindtap="toLoginPage" wx:if="{{!token}}">
       <view class="avatar-container">
         <image src="/assets/images/avatar.png"></image>
         <view class="no-login">
@@ -34,7 +26,7 @@
         </view>
       </view>
       <view class="setting">
-        <navigator url="/pages/settings/settings"> 设置 </navigator>
+        <navigator url="/modules/settingModule/pages/settings/settings"> 设置 </navigator>
       </view>
     </view>
 

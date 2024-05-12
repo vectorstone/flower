@@ -74,6 +74,7 @@
       "root": "modules/settingModule",
       "name": "settingModule",
       "pages": [
+        "pages/settings/settings",
         "pages/address/add/index",
         "pages/address/list/index",
         "pages/profile/profile"
@@ -91,7 +92,11 @@
     }
   ],
   "preloadRule": {
-    "pages/settings/settings": {
+    "modules/orderPayModule/pages/order/detail/detail": {
+      "network": "all",
+      "packages": ["settingModule"]
+    },
+    "pages/my/my": {
       "network": "all",
       "packages": ["settingModule"]
     },
@@ -104,5 +109,6 @@
       "packages": ["orderPayModule"]
     }
   },
-  "resolveAlias": { "@/*": "/*" }
+  "resolveAlias": { "@/*": "/*" },
+  "lazyCodeLoading": "requiredComponents"
 }

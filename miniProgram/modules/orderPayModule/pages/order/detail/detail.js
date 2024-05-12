@@ -8,6 +8,7 @@ import {
   reqPayStatus
 } from '@/api/order'
 import { formatTime } from '@/utils/formatTime.js'
+import { debounce } from 'miniprogram-licia'
 // 导入 async-validator 对参数进行验证
 import Schema from 'async-validator'
 const app = getApp()
@@ -23,7 +24,7 @@ Page({
     orderAddress: {}, // 收货地址
     orderInfo: {} // 订单商品详情
   },
-  async submitOrder() {
+  submitOrder: debounce(async function () {
     // 从 data 中结构数据
     const {
       buyName,
@@ -49,7 +50,7 @@ Page({
 
     // 打印验证结果
     console.log(valid)
-  },
+  }, 500),
 
   // 对新增收货地址请求参数进行验证
   validatorPerson(params) {

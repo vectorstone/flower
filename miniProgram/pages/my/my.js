@@ -3,6 +3,7 @@ import { ComponentWithStore } from 'mobx-miniprogram-bindings'
 // 使用 ComponentWithStore 方法替换 Component 方法构造页面
 // 导入 store 对象
 import { userStore } from '../../stores/userstore'
+import { debounce } from 'miniprogram-licia'
 ComponentWithStore({
   // 让页面和 Store 对象建立关联
   storeBindings: {

@@ -11,6 +11,8 @@ import { ComponentWithStore } from 'mobx-miniprogram-bindings'
 // 导入 store 对象
 import { userStore } from '../../stores/userstore'
 
+import { debounce } from 'miniprogram-licia'
+
 ComponentWithStore({
   // 让页面和 Store 对象建立关联
   storeBindings: {
@@ -19,7 +21,7 @@ ComponentWithStore({
     actions: ['setToken', 'setUserInfo']
   },
   methods: {
-    login() {
+    login: debounce(function () {
       wx.login({
         success: async ({ code }) => {
           if (code) {
@@ -40,7 +42,7 @@ ComponentWithStore({
           }
         }
       })
-    },
+    }, 500),
 
     // 获取用户信息
     async getUserInfo() {
