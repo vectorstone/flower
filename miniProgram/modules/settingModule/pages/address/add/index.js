@@ -1,10 +1,6 @@
 // 从async-validator 中引入构造函数
 import Schema from 'async-validator'
-import {
-  reqAddAddress,
-  reqGetAddressDetail,
-  reqUpdateAddress
-} from '../../../../../api/address'
+import { reqAddAddress, reqGetAddressDetail, reqUpdateAddress } from '@/api/address'
 
 Page({
   // 页面的初始数据
