@@ -11,6 +11,10 @@ import {
 } from './utils/storage'
 import './utils/extendApi'
 App({
+  // 定义全局共享的数据
+  globalData: {
+    address: {}
+  },
   //四个异步的本地数据的api封装测试
   async onShow() {
     // 存储测试
@@ -29,7 +33,6 @@ App({
     // const res = await asyncClearStorage().then(() => {
     //   console.log(res)
     // })
-
     // 获取当前小程序的账号信息
     // const accountInfo = wx.getAccountInfoSync()
     // console.log(accountInfo.miniProgram.envVersion)

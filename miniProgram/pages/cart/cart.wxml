@@ -3,10 +3,16 @@
   <view
     wx:if="{{ cartList.length }}"
     class="container goods-wrap"
-    bindtap="onSwipeCellPageTap"
+    bindtap="onSwipeCellPage"
   >
     <view class="goods-item" wx:for="{{ cartList }}" wx:key="index">
-      <van-swipe-cell class="goods-swipe" right-width="{{ 65 }}">
+      <van-swipe-cell
+        class="goods-swipe"
+        right-width="{{ 65 }}"
+        id="swipe-cell-{{ item.goodsId }}"
+        bind:open="swipeCellOpen"
+        bind:click="onSwipeCellClick"
+      >
         <van-cell-group border="{{ false }}">
           <view class="goods-info">
             <view class="left">
@@ -44,7 +50,13 @@
             </view>
           </view>
         </van-cell-group>
-        <view slot="right" class="van-swipe-cell__right">删除</view>
+        <view
+          slot="right"
+          class="van-swipe-cell__right"
+          bindtap="delCartGoods"
+          data-id="{{ item.goodsId }}"
+          >删除</view
+        >
       </van-swipe-cell>
     </view>
   </view>
@@ -65,9 +77,11 @@
   </van-empty>
 
   <!-- 底部工具栏 -->
+  <!-- 底部工具栏组件展示价格,默认是以 分 的形式进行展示,如果要以元的方式进行展示,需要乘以 100 -->
   <van-submit-bar
+    bindsubmit="toOrder"
     wx:if="{{ cartList.length }}"
-    price="{{ 3050 }}"
+    price="{{ totalPrice * 100}}"
     button-text="去结算"
     tip="{{ true }}"
   >

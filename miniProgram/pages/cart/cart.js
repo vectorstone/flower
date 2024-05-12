@@ -1,12 +1,24 @@
 // pages/cart/component/cart.js
 import { ComponentWithStore } from 'mobx-miniprogram-bindings'
 import { userStore } from '@/stores/userstore'
-import { reqCartList, reqUpdateChecked, reqCheckAllCart, reqAddCart } from '@/api/cart'
+import {
+  reqCartList,
+  reqUpdateChecked,
+  reqCheckAllCart,
+  reqAddCart,
+  reqDelCart
+} from '@/api/cart'
 const computedBehavior = require('miniprogram-computed').behavior
+// 导入让删除滑块自动弹回的 behavior
+import { swipeCellBehavior } from '@/behaviors/swipCell'
+
+// 从 miniprogram-licia 导入防抖函数
+import { debounce } from 'miniprogram-licia'
+
 // 购物车页面的功能比较的复杂,所以建议使用Component来进行构建,简单一点的页面就使用Page进行构建即可
 ComponentWithStore({
   // 注册计算属性
-  behaviors: [computedBehavior],
+  behaviors: [computedBehavior, swipeCellBehavior],
 
   storeBindings: {
     store: userStore,
@@ -21,6 +33,21 @@ ComponentWithStore({
       return (
         data.cartList.length !== 0 && data.cartList.every((item) => item.isChecked === 1)
       )
+    },
+
+    // 计算商品价格总和
+    totalPrice(data) {
+      // 用来对订单总金额进行累加
+      let totalPrice = 0
+
+      data.cartList.forEach((item) => {
+        // 如果商品的 isChecked 属性等于，说明该商品被选中的
+        if (item.isChecked === 1) {
+          totalPrice += item.count * item.price
+        }
+      })
+
+      return totalPrice
     }
   },
 
@@ -42,8 +69,46 @@ ComponentWithStore({
       this.showTipGetList()
     },
 
-    // 更新商品的数量
-    async changeBuyNum(event) {
+    // 跳转到订单结算页面
+    toOrder() {
+      if (this.data.totalPrice === 0) {
+        wx.toast({
+          title: '请选择需要购买的商品'
+        })
+
+        return
+      }
+
+      // 跳转到订单的结算页面
+      wx.navigateTo({
+        url: '/modules/orderPayModule/pages/order/detail/detail'
+      })
+    },
+
+    // 删除购物车中的商品
+    async delCartGoods(event) {
+      // 获取需要删除商品的 id
+      const { id } = event.currentTarget.dataset
+
+      // 询问用户是否删除该商品
+      const modalRes = await wx.modal({
+        content: '您确认删除该商品吗 ?'
+      })
+
+      if (modalRes) {
+        await reqDelCart(id)
+
+        this.showTipGetList()
+      }
+    },
+
+    onHide() {
+      // 在页面隐藏的时候，需要让删除滑块自动弹回
+      this.onSwipeCellCommonClick()
+    },
+
+    // 更新商品的数量,防抖,并不是每次更新数量都要向后端服务器发送请求,当停顿的事件超过500ms的时候才会向后端服务器发送请求,更新商品的数量
+    changeBuyNum: debounce(async function (event) {
       // 获取最新的购买数量，
       // 如果用户输入的值大于 200，购买数量需要重置为 200
       // 如果不大于 200，直接返回用户输入的值
@@ -81,7 +146,7 @@ ComponentWithStore({
           [`cartList[${index}].count`]: buynum
         })
       }
-    },
+    }, 500),
 
     // 全选或者全不选
     // 全选和全不选功能
